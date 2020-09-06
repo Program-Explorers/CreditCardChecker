@@ -1,15 +1,15 @@
 import java.util.*;
 
 public class Checker {
-
+    private static long CREDIT_NUM;
+    private static Scanner keyboard = new Scanner(System.in);
     public static boolean isValid(String company_name, int[] num) {
         int length = 0;
-        Scanner keyboard = new Scanner(System.in);
         System.out.println("\nYou chose " + company_name
                 + "\nEnter the credit card number to verify: ");
         try {
-            long credit_num = keyboard.nextLong();
-            length = String.valueOf(credit_num).length();
+            CREDIT_NUM = keyboard.nextLong();
+            length = String.valueOf(CREDIT_NUM).length();
         } catch (InputMismatchException e) {
             System.out.println("Your number is way too long");
         }
@@ -23,19 +23,32 @@ public class Checker {
         }
     }
 
+    public static int evenPlace(long number){
+        int totalSum = 0;
+        String num = number + "";
+        System.out.println(num);
+        for (int i = num.length() - 2; i >= 0; i -= 2)
+            totalSum += getDigit(Integer.parseInt(num.charAt(i) + "") * 2);
+
+        return totalSum;
+    }
+    public static int getDigit(int number) {
+        if (number < 9) {
+            return number;
+        }
+        return number / 10 + number % 10;
+    }
+
     public static void main(String[] args) {
         //initializing variables, Scanner, and Hashtable
         String firstName, lastName, company_name;
-        Scanner keyboard = new Scanner(System.in);
-        Hashtable<String, int[]> companies = new Hashtable<String, int[]>();
+        HashMap<String, int[]> companies = new HashMap<String, int[]>();
 
         //Most popular credit card company names and some sample credit number length values
         companies.put("visa", new int[]{16});
         companies.put("discover", new int[]{16, 19});
         companies.put("american express", new int[]{15});
         companies.put("mastercard", new int[]{16});
-
-        List<String> companyNames = Arrays.asList("Visa", "Discover", "American Express", "Mastercard");
 
         System.out.print("Please enter your first name: ");
         firstName = keyboard.nextLine();
@@ -58,10 +71,13 @@ public class Checker {
 
         boolean creditCardValid = isValid(company_name, companies.get(company_name));
 
-        if (creditCardValid)
-            System.out.println("\nYour credit card is valid");
-        else
+        if (creditCardValid) {
+            System.out.print(evenPlace(CREDIT_NUM));
+
+        }
+        else {
             System.out.println("\nYour credit card is invalid");
+        }
 
     }
 }
