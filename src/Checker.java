@@ -1,4 +1,3 @@
-import javax.security.auth.login.CredentialException;
 import javax.swing.*;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -92,38 +91,41 @@ public class Checker {
         companies.put("american express", new int[]{15});
         companies.put("mastercard", new int[]{16});
 
-        System.out.print("Please enter your first name: ");
-        firstName = keyboard.nextLine();
-        while (firstName.length() < 2) {
-            System.out.print("\n\nPlease enter your first name: ");
-            firstName = keyboard.nextLine();
-        }
-        System.out.print("Please enter your last name: ");
-        lastName = keyboard.nextLine();
-        while (lastName.length() < 2) {
-            System.out.print("\n\nPlease enter your last name: ");
-            lastName = keyboard.nextLine();
-        }
+        String titledName = "placeholder";
+        boolean isCompanyName = false;
 
+        do {
+            System.out.println("\nCompanies: Visa  Discover  American Express  Mastercard"
+                    + "\nPlease enter the name of the credit card company from the list above: ");
+            company_name = keyboard.nextLine().toLowerCase();
 
-        System.out.println("\nHello " + firstName + " " + lastName);
-        System.out.println("\nCompanies: Visa  Discover  American Express  Mastercard"
-                + "\nPlease enter the name of the credit card company from the list above: ");
-        company_name = keyboard.nextLine().toLowerCase();
-        String titledName = "Mastercard";
-        if (company_name.toUpperCase().equals(companyNamesTitled.get(0).toUpperCase()))
-            titledName = "Visa";
-        else if (company_name.toUpperCase().equals(companyNamesTitled.get(1).toUpperCase()))
-            titledName = "Discover";
-        else if (company_name.toUpperCase().equals(companyNamesTitled.get(2).toUpperCase()))
-            titledName = "American Express";
+            if (company_name.toUpperCase().equals(companyNamesTitled.get(0).toUpperCase())){
+                titledName = "Visa";
+                isCompanyName = true;
+            } else if (company_name.toUpperCase().equals(companyNamesTitled.get(1).toUpperCase())){
+                titledName = "Discover";
+                isCompanyName = true;
+            }
+            else if (company_name.toUpperCase().equals(companyNamesTitled.get(2).toUpperCase())){
+                titledName = "American Express";
+                isCompanyName = true;
+            }
+            else if (company_name.toUpperCase().equals(companyNamesTitled.get(3).toUpperCase())){
+                titledName = "Mastercard";
+                isCompanyName = true;
+            }
+        } while(!isCompanyName);
 
         boolean creditCardValid = isValid(titledName, company_name, companies.get(company_name));
         if (creditCardValid) {
             System.out.println("Your credit card is valid... for now");
-            System.out.println("Your credit card number " + CREDIT_NUM + " is " + runLuhnAlgo(CREDIT_NUM) + " according to Luhn's algorithm");
+            System.out.println("Running Luhn's algorithm...");
+            System.out.println("Your credit card number " + CREDIT_NUM + " is " + runLuhnAlgo(CREDIT_NUM) +
+                    " according to Luhn's algorithm");
         } else {
             System.out.println("\nYour credit card is invalid");
+            System.out.println("Customer Service numbers\n  Visa  1 800-847-2911\n  Discover  1 800-347-2683");
+            System.out.println("  American Express  1 800-528-4800\n  Mastercard  1 800-307-7309");
         }
     }
 }
