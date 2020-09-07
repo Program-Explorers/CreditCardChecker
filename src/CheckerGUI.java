@@ -88,8 +88,8 @@ public class CheckerGUI {
         company.setBounds(10, 10, 100, 100);
 
         JLabel creditNum = new JLabel();
-        company.setText("Enter the credit card number:");
-        company.setBounds(20, 20, 70, 100);
+        company.setText("Card Number");
+        company.setBounds(5, 20, 70, 100);
 
         //empty label which will show event after button clicked
         JLabel output = new JLabel();
@@ -101,7 +101,7 @@ public class CheckerGUI {
         company_name =  companyEnter.getText();
 
         JTextField creditNumber= new JTextField();
-        creditNumber.setBounds(100, 50, 130, 30);
+        creditNumber.setBounds(110, 50, 130, 30);
         CREDIT_NUM =  creditNumber.getText();
 
         //add to frame
@@ -110,7 +110,7 @@ public class CheckerGUI {
         f.add(company);
         f.add(creditNum);
         f.add(b);
-        f.setSize(300,300);
+        f.setSize(350,350);
         f.setLayout(null);
         f.setVisible(true);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
