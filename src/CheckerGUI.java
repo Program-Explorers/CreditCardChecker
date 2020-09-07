@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-public class Checker {
+public class CheckerGUI {
     private static final Scanner keyboard = new Scanner(System.in);
     private static String CREDIT_NUM;
     private static int[] num1;
@@ -121,7 +121,8 @@ public class Checker {
         boolean creditCardValid = isValid(titledName, company_name, companies.get(company_name));
         if (creditCardValid) {
             System.out.println("Your credit card is valid... for now");
-            System.out.println("Your credit card number " + CREDIT_NUM + " is " + runLuhnAlgo(CREDIT_NUM) + " according to Luhn's algorithm");
+            System.out.println("Your credit card number " + CREDIT_NUM + " is " + runLuhnAlgo(CREDIT_NUM) +
+                    " according to Luhn's algorithm");
         } else {
             System.out.println("\nYour credit card is invalid");
         }
