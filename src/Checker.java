@@ -73,11 +73,6 @@ public class Checker {
 
         return sum % 10 == 0;
     }
-    public static void theJFRAME() {
-        JFrame frame = new JFrame();
-        frame.setSize(500, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
 
     public static void main(String[] args) {
         //initializing variables, Scanner, and Hashtable

@@ -1,20 +1,23 @@
-import javax.security.auth.login.CredentialException;
 import javax.swing.*;
+import java.awt.event.*;
+import java.awt.image.CropImageFilter;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class CheckerGUI {
     private static final Scanner keyboard = new Scanner(System.in);
     private static String CREDIT_NUM;
     private static int[] num1;
+    private static String company_name;
+    protected JTextField company;
+    protected JTextField creditNumber;
+    protected JTextArea textArea;
+    private final static String newline = "\n";
 
-    //Basic check to validate before running Luhn's algorithm
     public static boolean isValid(String titledName, String company_name, int[] num) {
-        System.out.println("\nYou chose " + titledName
-                + "\nEnter the credit card number to verify (No-Dashes): ");
-        CREDIT_NUM = keyboard.nextLine();
         CREDIT_NUM = CREDIT_NUM.replaceAll("\\s", "");
         int length = String.valueOf(CREDIT_NUM).length();
         try {
@@ -74,13 +77,51 @@ public class CheckerGUI {
 
         return sum % 10 == 0;
     }
-    public static void theJFRAME() {
-        JFrame frame = new JFrame();
-        frame.setSize(500, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    CheckerGUI(){
+        JFrame f=new JFrame("Credit Card Verifier");
+        //submit button
+        JButton b=new JButton("Submit");
+        b.setBounds(100,100,140, 40);
+        //company name label
+        JLabel company = new JLabel();
+        company.setText("Enter name of company:");
+        company.setBounds(10, 10, 100, 100);
+
+        JLabel creditNum = new JLabel();
+        company.setText("Enter the credit card number:");
+        company.setBounds(20, 20, 70, 100);
+
+        //empty label which will show event after button clicked
+        JLabel output = new JLabel();
+        output.setBounds(10, 110, 200, 100);
+
+        //textfield to enter name
+        JTextField companyEnter= new JTextField();
+        companyEnter.setBounds(110, 50, 130, 30);
+        company_name =  companyEnter.getText();
+
+        JTextField creditNumber= new JTextField();
+        creditNumber.setBounds(100, 50, 130, 30);
+        CREDIT_NUM =  creditNumber.getText();
+
+        //add to frame
+        f.add(output);
+        f.add(companyEnter);
+        f.add(company);
+        f.add(creditNum);
+        f.add(b);
+        f.setSize(300,300);
+        f.setLayout(null);
+        f.setVisible(true);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        //action listener
+        b.addActionListener(arg0 -> output.setText(company_name));
     }
 
+
     public static void main(String[] args) {
+        new CheckerGUI();
         //initializing variables, Scanner, and Hashtable
         String firstName, lastName, company_name;
         HashMap<String, int[]> companies = new HashMap<>();
@@ -92,39 +133,20 @@ public class CheckerGUI {
         companies.put("american express", new int[]{15});
         companies.put("mastercard", new int[]{16});
 
-        System.out.print("Please enter your first name: ");
-        firstName = keyboard.nextLine();
-        while (firstName.length() < 2) {
-            System.out.print("\n\nPlease enter your first name: ");
-            firstName = keyboard.nextLine();
-        }
-        System.out.print("Please enter your last name: ");
-        lastName = keyboard.nextLine();
-        while (lastName.length() < 2) {
-            System.out.print("\n\nPlease enter your last name: ");
-            lastName = keyboard.nextLine();
-        }
 
-
-        System.out.println("\nHello " + firstName + " " + lastName);
-        System.out.println("\nCompanies: Visa  Discover  American Express  Mastercard"
-                + "\nPlease enter the name of the credit card company from the list above: ");
-        company_name = keyboard.nextLine().toLowerCase();
         String titledName = "Mastercard";
-        if (company_name.toUpperCase().equals(companyNamesTitled.get(0).toUpperCase()))
-            titledName = "Visa";
-        else if (company_name.toUpperCase().equals(companyNamesTitled.get(1).toUpperCase()))
-            titledName = "Discover";
-        else if (company_name.toUpperCase().equals(companyNamesTitled.get(2).toUpperCase()))
-            titledName = "American Express";
+//        if (company_name.toUpperCase().equals(companyNamesTitled.get(0).toUpperCase()))
+//            titledName = "Visa";
+//        else if (company_name.toUpperCase().equals(companyNamesTitled.get(1).toUpperCase()))
+//            titledName = "Discover";
+//        else if (company_name.toUpperCase().equals(companyNamesTitled.get(2).toUpperCase()))
+//            titledName = "American Express";
 
-        boolean creditCardValid = isValid(titledName, company_name, companies.get(company_name));
-        if (creditCardValid) {
-            System.out.println("Your credit card is valid... for now");
-            System.out.println("Your credit card number " + CREDIT_NUM + " is " + runLuhnAlgo(CREDIT_NUM) +
-                    " according to Luhn's algorithm");
-        } else {
-            System.out.println("\nYour credit card is invalid");
-        }
+//        boolean creditCardValid = isValid(titledName, company_name, companies.get(company_name));
+//        if (creditCardValid) {
+//
+//        } else {
+//
+//        }
     }
 }
