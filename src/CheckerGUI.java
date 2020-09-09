@@ -1,6 +1,6 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.CropImageFilter;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -79,44 +79,43 @@ public class CheckerGUI {
     }
     CheckerGUI(){
         JFrame f=new JFrame("Credit Card Verifier");
-        //submit button
-        JButton b=new JButton("Submit");
-        b.setBounds(100,100,140, 40);
-        //company name label
-        JLabel company = new JLabel();
-        company.setText("Enter name of company:");
-        company.setBounds(10, 10, 100, 100);
+        JPanel panel = new JPanel();
+        GridLayout gl = new GridLayout(6,2);
+        panel.setLayout(gl);
 
-        JLabel creditNum = new JLabel();
-        company.setText("Card Number");
-        company.setBounds(5, 20, 70, 100);
 
-        //empty label which will show event after button clicked
+        JLabel company_name1 = new JLabel("Company Name");
+        JTextField company_name2 = new JTextField();
+        panel.add(company_name1);
+        panel.add(company_name2);
+        JLabel creditNum = new JLabel("Credit Card Number");
+        JTextField creditNum2 = new JTextField();
+        panel.add(creditNum);
+        panel.add(creditNum2);
+        JButton b =new JButton("Submit");
+        panel.add(b);
         JLabel output = new JLabel();
-        output.setBounds(10, 110, 200, 100);
+        panel.add(output);
 
-        //textfield to enter name
-        JTextField companyEnter= new JTextField();
-        companyEnter.setBounds(110, 50, 130, 30);
-        company_name =  companyEnter.getText();
-
-        JTextField creditNumber= new JTextField();
-        creditNumber.setBounds(110, 50, 130, 30);
-        CREDIT_NUM =  creditNumber.getText();
+        CREDIT_NUM = creditNum2.getText();
+        company_name = company_name2.getText();
 
         //add to frame
-        f.add(output);
-        f.add(companyEnter);
-        f.add(company);
-        f.add(creditNum);
-        f.add(b);
+        panel.add(output);
+        panel.add(b);
+        f.add(panel);
         f.setSize(350,350);
-        f.setLayout(null);
         f.setVisible(true);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //action listener
-        b.addActionListener(arg0 -> output.setText(company_name));
+        b.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                output.setText(creditNum2.getText());
+            }
+        });
     }
 
 
@@ -132,16 +131,6 @@ public class CheckerGUI {
         companies.put("discover", new int[]{16, 19});
         companies.put("american express", new int[]{15});
         companies.put("mastercard", new int[]{16});
-
-
-        String titledName = "Mastercard";
-//        if (company_name.toUpperCase().equals(companyNamesTitled.get(0).toUpperCase()))
-//            titledName = "Visa";
-//        else if (company_name.toUpperCase().equals(companyNamesTitled.get(1).toUpperCase()))
-//            titledName = "Discover";
-//        else if (company_name.toUpperCase().equals(companyNamesTitled.get(2).toUpperCase()))
-//            titledName = "American Express";
-
 //        boolean creditCardValid = isValid(titledName, company_name, companies.get(company_name));
 //        if (creditCardValid) {
 //
